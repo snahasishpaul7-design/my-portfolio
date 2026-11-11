@@ -178,6 +178,5 @@
   .numpy-matrix { grid-template-columns: repeat(3,54px); padding: 13px; }
   .web-form { width: 48%; }
 }
-
-
-
+/* Keep owner-only actions hidden until the Worker verifies the upload password. */
+#add-certificate[hidden] { display: none !important; }
