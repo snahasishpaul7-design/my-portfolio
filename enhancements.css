@@ -147,6 +147,8 @@
 .cert-delete { top: auto; right: 10px; bottom: 14px; opacity: 1; padding: 4px 7px; border: 1px solid var(--line); border-radius: 4px; background: rgba(12,9,18,.8); }
 .certificate-card:has(.cert-delete) .cert-date { padding-right: 58px; }
 .form-textarea { height: auto; min-height: 70px; padding: 10px 12px; resize: vertical; line-height: 1.6; }
+.upload-status { margin: 12px 0 0; padding: 9px 11px; border-left: 2px solid var(--accent); background: rgba(151,105,245,.07); color: #aaa0ba; font-size: 10px; line-height: 1.65; }
+.upload-security-note { display: block; margin-top: 7px; color: #82798f; font-size: 9px; line-height: 1.6; }
 
 @media(max-width:900px) {
   .portrait-frame { width: 270px; height: 270px; }
@@ -176,5 +178,6 @@
   .numpy-matrix { grid-template-columns: repeat(3,54px); padding: 13px; }
   .web-form { width: 48%; }
 }
+
 
 
