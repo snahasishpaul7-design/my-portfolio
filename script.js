@@ -283,7 +283,7 @@ async function showNewPublicRepositories() {
     if (!response.ok) return;
     const repositories = await response.json();
     const known = new Set(projectCards.map((card) => card.href.replace(/\/$/, "").split("/").pop().toLowerCase()));
-    const excluded = new Set(["project-simulator-group-6-", "webtech_versity"]);
+    const excluded = new Set(["project-simulator-group-6-", "webtech_versity", "my-portfolio"]);
     const additions = repositories.filter((repo) => !repo.fork && !repo.archived && !known.has(repo.name.toLowerCase()) && !excluded.has(repo.name.toLowerCase()));
     const grid = document.querySelector("#project-grid");
     additions.forEach((repo, index) => {
@@ -322,3 +322,4 @@ if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches && "Intersect
 }
 renderCertificates();
 showNewPublicRepositories();
+
