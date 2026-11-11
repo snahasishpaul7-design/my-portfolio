@@ -102,6 +102,10 @@ export default {
     const suppliedPassword = (request.headers.get("Authorization") || "").replace(/^Bearer\s+/i, "");
     if (!secureMatch(suppliedPassword, env.UPLOAD_PASSWORD)) return reply({ error: "Upload password is incorrect." }, 401, origin);
 
+    const pathname = new URL(request.url).pathname.replace(/\/+$/, "");
+    if (pathname === "/authorize") return reply({ authorized: true }, 200, origin);
+    if (pathname !== "") return reply({ error: "Not found." }, 404, origin);
+
     let data;
     try {
       data = await request.json();
