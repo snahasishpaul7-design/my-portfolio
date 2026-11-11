@@ -77,20 +77,20 @@ const form = document.querySelector("#certificate-form");
 const fileInput = document.querySelector("#cert-file");
 const fileName = document.querySelector("#selected-file");
 const formError = document.querySelector("#form-error");
-const ownerPassword = document.querySelector("#cert-owner-password");
-const publicUploadAuth = document.querySelector("#public-upload-auth");
-const publicUploadStatus = document.querySelector("#public-upload-status");
+const ownerAccessButton = document.querySelector("#owner-access");
+const addCertificateButton = document.querySelector("#add-certificate");
+const ownerLoginDialog = document.querySelector("#owner-login-dialog");
+const ownerLoginForm = document.querySelector("#owner-login-form");
+const ownerPasswordInput = document.querySelector("#owner-password");
+const ownerLoginError = document.querySelector("#owner-login-error");
 const publicCertificateEndpoint = window.PORTFOLIO_UPLOAD_ENDPOINT || "";
 const maxFileSize = 8 * 1024 * 1024;
 const objectUrls = new Set();
 let publicCertificates = [];
 let revealObserver;
+let ownerPasswordValue = "";
 
-if (publicCertificateEndpoint) {
-  publicUploadAuth.hidden = false;
-  ownerPassword.required = true;
-  publicUploadStatus.hidden = true;
-}
+if (!publicCertificateEndpoint) ownerAccessButton.hidden = true;
 
 function observeRevealItems(root = document) {
   if (!revealObserver) return;
@@ -216,7 +216,45 @@ async function renderCertificates() {
   }
 }
 
-document.querySelector("#add-certificate").addEventListener("click", () => {
+ownerAccessButton.addEventListener("click", () => {
+  ownerLoginForm.reset();
+  ownerLoginError.textContent = "";
+  ownerLoginDialog.showModal();
+  ownerPasswordInput.focus();
+});
+
+ownerLoginForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  ownerLoginError.textContent = "";
+  const password = ownerPasswordInput.value;
+  try {
+    const response = await fetch(`${publicCertificateEndpoint.replace(/\/+$/, "")}/authorize`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${password}`,
+      },
+      body: JSON.stringify({ action: "authorize" }),
+    });
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok || !result.authorized) throw new Error(result.error || "Upload password is incorrect.");
+    ownerPasswordValue = password;
+    ownerLoginDialog.close();
+    ownerAccessButton.hidden = true;
+    addCertificateButton.hidden = false;
+  } catch (error) {
+    ownerLoginError.textContent = error.message || "Could not verify the owner password.";
+  }
+});
+
+ownerLoginDialog.querySelectorAll("[data-close-owner-dialog]").forEach((button) => {
+  button.addEventListener("click", () => ownerLoginDialog.close());
+});
+ownerLoginDialog.addEventListener("click", (event) => {
+  if (event.target === ownerLoginDialog) ownerLoginDialog.close();
+});
+
+addCertificateButton.addEventListener("click", () => {
   form.reset();
   fileName.textContent = "No file selected";
   formError.textContent = "";
@@ -226,6 +264,12 @@ document.querySelector("#add-certificate").addEventListener("click", () => {
 
 document.querySelectorAll("[data-close-dialog]").forEach((button) => {
   button.addEventListener("click", () => dialog.close());
+});
+
+dialog.addEventListener("close", () => {
+  ownerPasswordValue = "";
+  addCertificateButton.hidden = true;
+  ownerAccessButton.hidden = !publicCertificateEndpoint;
 });
 
 dialog.addEventListener("click", (event) => {
@@ -272,7 +316,7 @@ form.addEventListener("submit", async (event) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${ownerPassword.value}`,
+          Authorization: `Bearer ${ownerPasswordValue}`,
         },
         body: JSON.stringify({
           title: record.title,
@@ -287,7 +331,6 @@ form.addEventListener("submit", async (event) => {
       const result = await response.json().catch(() => ({}));
       if (!response.ok) throw new Error(result.error || "Could not publish this certificate.");
       publicCertificates.unshift(result.certificate);
-      ownerPassword.value = "";
       dialog.close();
       await renderCertificates();
       return;
