@@ -1,0 +1,94 @@
+@keyframes heroRise {
+  from { opacity: 0; transform: translateY(22px); filter: blur(7px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+@keyframes portraitArrive {
+  from { opacity: 0; transform: scale(.88) translateY(18px); filter: saturate(.45) blur(4px); }
+  to { opacity: 1; transform: scale(1) translateY(0); filter: saturate(.9) blur(0); }
+}
+
+@keyframes orbitA {
+  from { transform: rotate(-25deg); }
+  to { transform: rotate(335deg); }
+}
+
+@keyframes orbitB {
+  from { transform: rotate(48deg); }
+  to { transform: rotate(-312deg); }
+}
+
+@keyframes orbitC {
+  from { transform: rotate(72deg); }
+  to { transform: rotate(432deg); }
+}
+
+@keyframes slowFloat {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -8px; }
+}
+
+@keyframes ambientDrift {
+  0%, 100% { transform: translate3d(0,0,0) scale(1); }
+  50% { transform: translate3d(24px,-16px,0) scale(1.08); }
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-160%) skewX(-18deg); opacity: 0; }
+  35% { opacity: .32; }
+  100% { transform: translateX(160%) skewX(-18deg); opacity: 0; }
+}
+
+.hero-copy > .eyebrow,
+.hero-copy > h1,
+.hero-copy > .hero-intro,
+.hero-copy > .hero-actions,
+.hero-copy > .hero-footnote {
+  animation: heroRise .8s cubic-bezier(.2,.75,.25,1) both;
+}
+
+.hero-copy > .eyebrow { animation-delay: .05s; }
+.hero-copy > h1 { animation-delay: .13s; }
+.hero-copy > .hero-intro { animation-delay: .22s; }
+.hero-copy > .hero-actions { animation-delay: .31s; }
+.hero-copy > .hero-footnote { animation-delay: .4s; }
+.portrait-frame { animation: portraitArrive 1.15s .16s cubic-bezier(.2,.75,.25,1) both; }
+.orbit-a { animation: orbitA 46s linear infinite; }
+.orbit-b { animation: orbitB 64s linear infinite; }
+.orbit-c { animation: orbitC 84s linear infinite; }
+.hero-stamp { animation: slowFloat 5s ease-in-out infinite; }
+.hero-caption { animation: slowFloat 6s .7s ease-in-out infinite; }
+.ambient-one { animation: ambientDrift 18s ease-in-out infinite; }
+.ambient-two { animation: ambientDrift 22s -6s ease-in-out infinite reverse; }
+
+.button-primary { position: relative; overflow: hidden; isolation: isolate; }
+.button-primary::after {
+  position: absolute;
+  z-index: -1;
+  inset: -30% auto -30% -28%;
+  width: 24%;
+  content: "";
+  background: linear-gradient(90deg,transparent,rgba(255,255,255,.32),transparent);
+  opacity: 0;
+}
+.button-primary:hover::after { animation: shimmer .75s ease-out; }
+
+.motion-ready .reveal-item {
+  opacity: 0;
+  transform: translateY(22px);
+  filter: blur(3px);
+  transition: opacity .7s ease, transform .7s cubic-bezier(.2,.75,.25,1), filter .7s ease;
+  transition-delay: var(--reveal-delay,0ms);
+}
+.motion-ready .reveal-item.is-visible { opacity: 1; transform: translateY(0); filter: blur(0); }
+
+@media(prefers-reduced-motion:reduce) {
+  .hero-copy > *, .portrait-frame, .orbit-a, .orbit-b, .orbit-c, .hero-stamp, .hero-caption, .ambient-one, .ambient-two,
+  .button-primary:hover::after { animation: none !important; }
+  .motion-ready .reveal-item { opacity: 1; transform: none; filter: none; transition: none; }
+}
+
+/* Bring the certificate gallery in with the other learning sections. */
+.motion-ready .credentials.reveal-item { transition-duration: .85s; }
+.motion-ready .certificate-card.reveal-item { transition-duration: .65s; }
+
