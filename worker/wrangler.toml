@@ -1,0 +1,4 @@
+name = "tonmoy-portfolio-certificate-uploader"
+main = "worker.js"
+compatibility_date = "2026-11-11"
+
