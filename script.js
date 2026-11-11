@@ -77,9 +77,20 @@ const form = document.querySelector("#certificate-form");
 const fileInput = document.querySelector("#cert-file");
 const fileName = document.querySelector("#selected-file");
 const formError = document.querySelector("#form-error");
-const maxFileSize = 15 * 1024 * 1024;
+const ownerPassword = document.querySelector("#cert-owner-password");
+const publicUploadAuth = document.querySelector("#public-upload-auth");
+const publicUploadStatus = document.querySelector("#public-upload-status");
+const publicCertificateEndpoint = window.PORTFOLIO_UPLOAD_ENDPOINT || "";
+const maxFileSize = 8 * 1024 * 1024;
 const objectUrls = new Set();
+let publicCertificates = [];
 let revealObserver;
+
+if (publicCertificateEndpoint) {
+  publicUploadAuth.hidden = false;
+  ownerPassword.required = true;
+  publicUploadStatus.hidden = true;
+}
 
 function observeRevealItems(root = document) {
   if (!revealObserver) return;
@@ -133,6 +144,29 @@ async function storedCertificates(action, record) {
   });
 }
 
+async function loadPublicCertificates() {
+  try {
+    const response = await fetch("assets/certificates/public-certificates.json", { cache: "no-store" });
+    if (!response.ok) return;
+    const result = await response.json();
+    if (Array.isArray(result)) {
+      publicCertificates = result;
+      await renderCertificates();
+    }
+  } catch {
+    // The bundled certificates remain visible if no public manifest exists yet.
+  }
+}
+
+function fileAsBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(String(reader.result).split(",")[1] || "");
+    reader.onerror = () => reject(new Error("Could not read the selected certificate."));
+    reader.readAsDataURL(file);
+  });
+}
+
 function formatMonth(value) {
   if (!value) return "";
   const parsed = new Date(`${value}-01T12:00:00`);
@@ -148,7 +182,7 @@ async function renderCertificates() {
       objectUrls.add(url);
       return { ...certificate, file: url, isAdded: true };
     });
-    const all = [...saved, ...certificates];
+    const all = [...saved, ...publicCertificates, ...certificates];
   grid.innerHTML = all.map((certificate) => {
       const preview = certificate.preview
         ? `<img src="${escapeHTML(certificate.preview)}" alt="Full preview of ${escapeHTML(certificate.title)}" loading="lazy" />`
@@ -217,7 +251,7 @@ form.addEventListener("submit", async (event) => {
     return;
   }
   if (file.size > maxFileSize) {
-    formError.textContent = "This file is larger than 15 MB. Choose a smaller file.";
+    formError.textContent = "This file is larger than 8 MB. Choose a smaller file.";
     return;
   }
 
@@ -233,6 +267,32 @@ form.addEventListener("submit", async (event) => {
   };
 
   try {
+    if (publicCertificateEndpoint) {
+      const response = await fetch(publicCertificateEndpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${ownerPassword.value}`,
+        },
+        body: JSON.stringify({
+          title: record.title,
+          issuer: record.issuer,
+          date: record.date,
+          description: record.description,
+          fileName: file.name,
+          mimeType: file.type,
+          fileContentBase64: await fileAsBase64(file),
+        }),
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(result.error || "Could not publish this certificate.");
+      publicCertificates.unshift(result.certificate);
+      ownerPassword.value = "";
+      dialog.close();
+      await renderCertificates();
+      return;
+    }
+
     await storedCertificates("put", record);
     dialog.close();
     await renderCertificates();
@@ -321,5 +381,6 @@ if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches && "Intersect
   observeRevealItems();
 }
 renderCertificates();
+loadPublicCertificates();
 showNewPublicRepositories();
 
