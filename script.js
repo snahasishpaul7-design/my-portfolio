@@ -300,9 +300,16 @@ form.addEventListener("submit", async (event) => {
   }
 
   const data = new FormData(form);
+  const title = String(data.get("title") || "").trim();
+  if (!title) {
+    formError.textContent = "Enter a certificate name.";
+    document.querySelector("#cert-name").focus();
+    return;
+  }
+
   const record = {
     id: `added-${crypto.randomUUID()}`,
-    title: data.get("title").trim(),
+    title,
     issuer: data.get("issuer").trim() || "Certificate",
     date: data.get("date"),
     description: data.get("description").trim(),
@@ -323,7 +330,7 @@ form.addEventListener("submit", async (event) => {
           issuer: record.issuer,
           date: record.date,
           description: record.description,
-          fileName: file.name.replace(/[^A-Za-z0-9._ -]/g, "_"),
+          fileName: "certificate",
           mimeType: file.type,
           fileContentBase64: await fileAsBase64(file),
         }),
