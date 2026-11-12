@@ -4,7 +4,7 @@ My personal portfolio featuring my projects, technical skills, learning interest
 
 ## Live website
 
-https://snahasishpaul7-design.github.io/my-portfolio/
+https://snahasishpaul7-design.github.io/my-portfolio/?refresh=pdf-fix-20261112
 
 ## Add a certificate
 
@@ -22,4 +22,3 @@ The public upload endpoint runs in a Cloudflare Worker. Deploy `worker/worker.js
 - `UPLOAD_PASSWORD`: a long, unique password used only in the portfolio's certificate form.
 
 After deploying, put the Worker URL in `window.PORTFOLIO_UPLOAD_ENDPOINT` in `index.html`. The GitHub token stays in Cloudflare and is never sent to the browser. Public uploads are limited to PDF, PNG, JPG, and WebP files up to 8 MB.
-
