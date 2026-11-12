@@ -198,7 +198,7 @@ async function createPdfThumbnail(source) {
       canvas.toBlob((blob) => blob ? resolve(blob) : reject(new Error("Could not create certificate preview.")), "image/jpeg", 0.9);
     });
   } finally {
-    await pdf.destroy();
+    await pdf.cleanup?.();
   }
 }
 
@@ -496,4 +496,3 @@ if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches && "Intersect
 renderCertificates();
 loadPublicCertificates();
 showNewPublicRepositories();
-
