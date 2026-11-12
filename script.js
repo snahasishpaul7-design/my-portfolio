@@ -167,6 +167,62 @@ function fileAsBase64(file) {
   });
 }
 
+let pdfJsPromise;
+
+async function createPdfThumbnail(source) {
+  if (!pdfJsPromise) {
+    const version = "6.5.438";
+    pdfJsPromise = import(`https://cdn.jsdelivr.net/npm/pdfjs-dist@${version}/build/pdf.min.mjs`).then((pdfjs) => {
+      pdfjs.GlobalWorkerOptions.workerSrc = `https://cdn.jsdelivr.net/npm/pdfjs-dist@${version}/build/pdf.worker.min.mjs`;
+      return pdfjs;
+    }).catch((error) => {
+      pdfJsPromise = null;
+      throw error;
+    });
+  }
+
+  const pdfjs = await pdfJsPromise;
+  const response = await fetch(source);
+  if (!response.ok) throw new Error("Could not load this certificate PDF.");
+  const pdf = await pdfjs.getDocument({ data: new Uint8Array(await response.arrayBuffer()) }).promise;
+  try {
+    const page = await pdf.getPage(1);
+    const baseViewport = page.getViewport({ scale: 1 });
+    const viewport = page.getViewport({ scale: Math.min(1.5, 1400 / baseViewport.width) });
+    const canvas = document.createElement("canvas");
+    canvas.width = Math.ceil(viewport.width);
+    canvas.height = Math.ceil(viewport.height);
+    const context = canvas.getContext("2d", { alpha: false });
+    await page.render({ canvasContext: context, viewport }).promise;
+    return await new Promise((resolve, reject) => {
+      canvas.toBlob((blob) => blob ? resolve(blob) : reject(new Error("Could not create certificate preview.")), "image/jpeg", 0.9);
+    });
+  } finally {
+    await pdf.destroy();
+  }
+}
+
+function renderPdfPreviews() {
+  grid.querySelectorAll(".cert-preview[data-pdf-preview]").forEach((anchor) => {
+    if (anchor.dataset.previewStarted) return;
+    anchor.dataset.previewStarted = "true";
+    createPdfThumbnail(anchor.href).then((blob) => {
+      if (!anchor.isConnected) return;
+      const previewUrl = URL.createObjectURL(blob);
+      objectUrls.add(previewUrl);
+      const image = document.createElement("img");
+      image.src = previewUrl;
+      image.alt = `Preview of ${anchor.dataset.pdfTitle || "certificate"}`;
+      image.loading = "lazy";
+      anchor.querySelector(".pdf-preview-fallback")?.replaceWith(image);
+    }).catch((error) => {
+      console.warn("Certificate PDF preview could not be generated.", error);
+      const fallback = anchor.querySelector(".pdf-preview-fallback");
+      if (fallback) fallback.textContent = "Open the full certificate ↗";
+    });
+  });
+}
+
 function formatMonth(value) {
   if (!value) return "";
   const parsed = new Date(`${value}-01T12:00:00`);
@@ -184,15 +240,21 @@ async function renderCertificates() {
     });
     const all = [...saved, ...publicCertificates, ...certificates];
   grid.innerHTML = all.map((certificate) => {
+      const isImage = certificate.fileBlob?.type?.startsWith("image/");
+      const isPdf = certificate.fileBlob?.type === "application/pdf" || /\.pdf(?:$|[?#])/i.test(certificate.file || "");
+      const needsPdfPreview = !certificate.preview && !isImage && isPdf;
       const preview = certificate.preview
         ? `<img src="${escapeHTML(certificate.preview)}" alt="Full preview of ${escapeHTML(certificate.title)}" loading="lazy" />`
-        : certificate.fileBlob?.type?.startsWith("image/")
+        : isImage
           ? `<img src="${escapeHTML(certificate.file)}" alt="${escapeHTML(certificate.title)}" loading="lazy" />`
-          : `<iframe src="${escapeHTML(certificate.file)}#toolbar=0&navpanes=0&scrollbar=0" title="Preview of ${escapeHTML(certificate.title)}" loading="lazy"></iframe>`;
+          : needsPdfPreview
+            ? `<div class="pdf-preview-fallback" role="img" aria-label="Preview loading for ${escapeHTML(certificate.title)}" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#15111e;color:#d9b7ff;text-align:center;padding:1rem;box-sizing:border-box">Preparing certificate preview…</div>`
+            : `<iframe src="${escapeHTML(certificate.file)}#toolbar=0&navpanes=0&scrollbar=0" title="Preview of ${escapeHTML(certificate.title)}" loading="lazy"></iframe>`;
+      const pdfPreviewAttribute = needsPdfPreview ? `data-pdf-preview="true" data-pdf-title="${escapeHTML(certificate.title)}"` : "";
       const description = certificate.description || "A new learning milestone added to my ongoing education and skills portfolio.";
       return `
         <article class="certificate-card">
-          <a class="cert-preview" href="${escapeHTML(certificate.file)}" target="_blank" rel="noreferrer" aria-label="Open full ${escapeHTML(certificate.title)}">
+          <a class="cert-preview" href="${escapeHTML(certificate.file)}" target="_blank" rel="noreferrer" aria-label="Open full ${escapeHTML(certificate.title)}" ${pdfPreviewAttribute}>
             ${preview}<span class="cert-preview-label">FULL CERTIFICATE ↗</span>
           </a>
           <div class="cert-body">
@@ -205,6 +267,7 @@ async function renderCertificates() {
         </article>`;
   }).join("");
     observeRevealItems(grid);
+    renderPdfPreviews();
   };
 
   // Draw bundled certificates immediately; browser storage can load afterward.
