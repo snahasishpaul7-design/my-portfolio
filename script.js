@@ -1,5 +1,16 @@
 const certificates = [
   {
+    id: "ai-foundations-badge",
+    title: "AI Foundations Badge",
+    issuer: "OpenAI Academy",
+    date: "2026-11",
+    description: "Completed the AI Foundations course and passed the assessment with a 100% score.",
+    file: "https://oaiacademy.credential.net/4963bc60-4bf0-4e89-b304-32bf9f9c21da",
+    preview: "assets/certificates/previews/24c92fce-632c-4c2e-99c4-c6136f5b0fa1.png",
+    credentialUrl: "https://oaiacademy.credential.net/4963bc60-4bf0-4e89-b304-32bf9f9c21da",
+    icon: "AI",
+  },
+  {
     id: "ai-intro",
     title: "Introduction to Artificial Intelligence",
     issuer: "Simplilearn SkillUp",
