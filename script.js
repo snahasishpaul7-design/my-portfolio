@@ -323,7 +323,7 @@ form.addEventListener("submit", async (event) => {
           issuer: record.issuer,
           date: record.date,
           description: record.description,
-          fileName: file.name,
+          fileName: file.name.replace(/[^A-Za-z0-9._ -]/g, "_"),
           mimeType: file.type,
           fileContentBase64: await fileAsBase64(file),
         }),
