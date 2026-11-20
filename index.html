@@ -10,9 +10,11 @@
     <link rel="stylesheet" href="motion.css" />
     <link rel="stylesheet" href="reference-design.css?v=orvis-20261120" />
     <style>#add-certificate[hidden] { display: none !important; }
-  .hero-portrait{position:absolute;right:8vw;bottom:9vh;width:clamp(112px,16vw,210px);aspect-ratio:1;object-fit:cover;object-position:center 30%;border-radius:50%;border:2px solid var(--a);box-shadow:0 0 0 10px rgba(0,245,212,.08),0 0 48px rgba(0,245,212,.24);z-index:2;opacity:.94}
-  #home{position:relative;padding-right:clamp(170px,23vw,310px)}
-  @media(max-width:800px){.hero-portrait{right:7vw;bottom:6vh;width:100px}#home{padding-right:7vw;padding-bottom:180px}}
+  .hero-portrait{position:absolute;right:10vw;top:50%;width:clamp(180px,21vw,270px);aspect-ratio:1;object-fit:cover;object-position:center 30%;border-radius:50%;border:2px solid var(--a);box-shadow:0 0 0 12px rgba(0,245,212,.08),0 0 62px rgba(0,245,212,.28);z-index:2;opacity:.96;transform:translateY(-50%);transition:transform .35s ease,box-shadow .35s ease,filter .35s ease;cursor:pointer}
+  .hero-portrait:hover{transform:translateY(-50%) scale(1.07) rotate(2deg);box-shadow:0 0 0 16px rgba(0,245,212,.1),0 0 90px rgba(0,245,212,.48);filter:saturate(1.12)}
+  #home{position:relative;padding-right:clamp(220px,31vw,390px)}
+  @media(max-width:800px){.hero-portrait{right:6vw;top:auto;bottom:6vh;width:clamp(118px,27vw,168px);transform:none}.hero-portrait:hover{transform:scale(1.05)}#home{padding-right:7vw;padding-bottom:210px}}
+  @media(prefers-reduced-motion:reduce){.hero-portrait{transition:none}}
 </style>
     <script>window.PORTFOLIO_UPLOAD_ENDPOINT = "https://tonmoy-portfolio-cert-upload-v2-2026.snahasishpaul7.workers.dev";</script>
     
