@@ -4,5 +4,8 @@ My personal portfolio featuring my projects, technical skills, learning interest
 
 ## Live website
 
-https://snahasishpaul7-design.github.io/my-portfolio/?refresh=pdf-fix-20261112
+[Open the live portfolio](https://snahasishpaul7-design.github.io/my-portfolio/)
 
+## Certificate uploads
+
+The portfolio uses a Cloudflare Worker to authorize the owner and publish certificates to this repository. Uploads support PDF, PNG, JPG, and WebP files up to 8 MB.
