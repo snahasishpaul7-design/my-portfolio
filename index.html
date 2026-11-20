@@ -121,7 +121,7 @@
   .btn,.fill{will-change:transform}
   @media(max-width:800px){#panel{grid-template-columns:1fr}}
 </style>
-<script src="script.js?v=nav-open-20261120" defer></script>
+<script src="script.js?v=inline-menu-20261120" defer></script>
 
 <style>
 .logo{color:#00f5d4;text-decoration:none;font-weight:700;white-space:nowrap}
@@ -137,7 +137,7 @@
 
 <nav class="site-header">
   <a class="logo mono" href="#home" aria-label="Tonmoy Paul home">Tonmoy Paul</a>
-  <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false"><span></span><span></span></button>
+  <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" onclick="const nav=document.getElementById('site-nav');const open=this.getAttribute('aria-expanded')!=='true';nav.classList.toggle('is-open',open);this.setAttribute('aria-expanded',String(open));this.setAttribute('aria-label',open?'Close navigation':'Open navigation')"><span></span><span></span></button>
   <ul class="site-nav" id="site-nav">
     <li><a href="#home">Home</a></li><li><a href="#about">About</a></li>
     <li><a href="#experience">Experience</a></li><li><a href="#skills">Skills</a></li><li><a href="#work">Projects</a></li><li><a href="#certificates">Certificates</a></li><li><a href="#lab">Lab</a></li>
