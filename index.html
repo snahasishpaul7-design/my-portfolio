@@ -153,6 +153,15 @@ html{scroll-padding-top:90px!important}
 @media(max-width:800px){.site-header .site-nav.is-open{display:flex!important;position:absolute;top:100%;left:0;right:0;z-index:60;background:rgba(5,6,15,.98);padding:10px 6vw 18px;border-bottom:1px solid rgba(255,255,255,.14)}.site-header .site-nav.is-open li{display:block!important}.site-header .site-nav.is-open a{display:block;padding:12px 0}}
 </style>
 <style id="portfolio-boot-failsafe">#boot{display:none!important}html,body,body *{visibility:visible!important}body,body *{opacity:1!important}.motion-ready .reveal-item{opacity:1!important;transform:none!important;filter:none!important}main,nav,footer{display:block;position:relative;z-index:20}#bg,#floaters{z-index:0!important}</style>
+<style id="professional-cleanup">
+#floaters{display:none!important}#bg{opacity:.12!important}
+.about,.experience-section,#skills,.work,.credentials,#lab,.contact{min-height:unset!important;padding-top:clamp(64px,7vw,88px)!important;padding-bottom:clamp(64px,7vw,88px)!important}
+.section-heading{margin-bottom:30px!important;padding-bottom:14px!important}.experience-section{margin-top:12px!important}
+.about-grid{grid-template-columns:minmax(220px,.8fr) minmax(0,1.2fr)!important;gap:clamp(28px,6vw,72px)!important}
+.about-copy{max-width:760px!important;padding-top:0!important;color:#c6cfdd!important;font-size:16px!important;line-height:1.75!important}.about-copy p{margin:0 0 16px!important}.about-copy .text-link{display:inline-flex;margin-top:4px;color:#55dfcf!important}
+#lab .term{max-width:900px!important}#lab #out{height:220px!important;color:#dce7f5!important;font-size:14px!important;line-height:1.7!important}
+@media(max-width:680px){.about-grid{grid-template-columns:1fr!important;gap:18px!important}.about-copy{font-size:15px!important;line-height:1.7!important}.section-heading{margin-bottom:24px!important}}
+</style>
 </head>
 <body>
 <div id="prog"></div>
@@ -200,10 +209,9 @@ window.addEventListener('scroll',()=>document.querySelector('.site-header')?.cla
         <div class="about-grid">
           <h2 class="section-title" id="about-title">Learning how<br />things <span class="gradient-text">think.</span></h2>
           <div class="about-copy">
-            <p>I am a Computer Science and Engineering student at American International University-Bangladesh (AIUB) with a strong interest in Artificial Intelligence, Machine Learning, Data Analytics, and Software Development.</p>
-            <p>I enjoy exploring how technology can solve real-world problems through programming, data analysis, and practical experimentation. My technical interests include Python, SQL, data science, machine learning, and image processing.</p>
-            <p>I believe in continuous learning and developing skills through hands-on projects, problem-solving, and exploring emerging technologies. I am currently focused on strengthening my technical foundations and gaining practical experience to grow as a future technology professional.</p>
-            <p>I am always interested in learning new technologies, taking on challenges, and turning ideas into meaningful solutions.</p>
+            <p>I’m a Computer Science and Engineering student at American International University-Bangladesh (AIUB). I’m building practical skills in Python, data analytics, machine learning, and software development.</p>
+            <p>I learn by making projects: cleaning and exploring data with Pandas, creating visualizations with Power BI and Tableau, and practicing image processing with OpenCV.</p>
+            <p>I’m strengthening my technical foundation through coursework and hands-on projects. I’m open to internships and collaborations where I can learn and contribute.</p>
             <a class="text-link" href="https://github.com/snahasishpaul7-design" target="_blank" rel="noreferrer">A window into my GitHub <span aria-hidden="true">↗</span></a>
           </div>
         </div>
@@ -283,19 +291,9 @@ window.addEventListener('scroll',()=>document.querySelector('.site-header')?.cla
       </section>
 
 <section id="lab">
-  <h2 class="reveal"><b>04.</b>The Lab</h2>
+  <h2 class="reveal"><b>04.</b>Portfolio Terminal</h2>
   <p class="sub reveal">Type <code>help</code> in the terminal for commands. Choose Bubble, Insertion, or another sort below, then press Run.</p>
-  <div class="term reveal"><div class="top"><i></i><i></i><i></i></div><div id="out"><div class="c">Welcome! Type "help" to see commands.</div><div>Type help to see available commands.</div></div><div class="inl">visitor@tonmoy:~$<input id="cmd" autocomplete="off" spellcheck="false" placeholder="type a command (e.g. help)..."></div></div>
-  <div class="viz reveal" style="margin-top:34px">
-    <p class="sort-help">Pick a sorting method, press <strong>Shuffle</strong> to reset the bars, then press <strong>Run</strong> to watch it.</p>
-    <div class="ctl">
-      <select id="alg"><option value="bubble">Bubble Sort</option><option value="selection">Selection Sort</option><option value="insertion">Insertion Sort</option><option value="quick">Quick Sort</option></select>
-      <button id="shuf">Shuffle</button><button id="run">▶ Run</button>
-      <label class="mono" style="color:var(--muted)">speed <input type="range" id="spd" min="1" max="100" value="70"></label>
-      <span id="stat" class="mono" style="color:var(--a)"></span>
-    </div>
-    <div id="bars"><div style="height:28%"></div><div style="height:64%"></div><div style="height:42%"></div><div style="height:83%"></div><div style="height:34%"></div><div style="height:72%"></div><div style="height:49%"></div><div style="height:91%"></div><div style="height:38%"></div><div style="height:58%"></div><div style="height:77%"></div><div style="height:25%"></div><div style="height:68%"></div><div style="height:46%"></div><div style="height:87%"></div><div style="height:33%"></div><div style="height:61%"></div><div style="height:52%"></div><div style="height:79%"></div><div style="height:40%"></div></div>
-  </div>
+  <div class="term reveal"><div class="top"><i></i><i></i><i></i></div><div id="out"><div class="c">Portfolio terminal ready.</div><div>Type help to explore this portfolio.</div></div><div class="inl">visitor@tonmoy:~$<input id="cmd" autocomplete="off" spellcheck="false" placeholder="type help..."></div></div>
 </section>
 
 <section class="contact section-shell section-pad" id="contact" aria-labelledby="contact-title">
@@ -366,30 +364,6 @@ function draw(){
   requestAnimationFrame(draw);
 }
 if(!reduce)draw();
-
-/* ---------- Floating math / code symbols with scroll + mouse parallax ---------- */
-const syms=['E = mc²','∑ n²','∫ f(x)dx','π','e^(iπ)+1=0','O(n log n)','√x','∞','∂f/∂x','fib(n)','while(true)','int main()','def f():','a² + b² = c²','0b1011','0xFF','git push','⊕','∀x ∃y','P ≠ NP?','import numpy as np','import pandas as pd','df.describe()','np.mean(x)','plt.plot(x, y)','for row in data:','σ² = Var(X)','μ = Σx / n','P(A | B)','z = (x − μ) / σ','Σ(x − x̄)²','r = cov(x, y)','ŷ = β₀ + β₁x'];
-const fbox=document.getElementById('floaters');
-const fls=syms.map((s,i)=>{
-  const el=document.createElement('div');el.className='fl';el.textContent=s;
-  const z=.3+Math.random()*1.1;
-  el.style.fontSize=(14+z*14)+'px';el.style.opacity=.12+z*.25;
-  el.style.left=Math.random()*92+'vw';el.style.top=Math.random()*100+'vh';
-  el.style.color=['#7b5cff','#00f5d4','#ff4fd8'][i%3];
-  fbox.appendChild(el);
-  return{el,z,ph:Math.random()*6.28,sp:.3+Math.random()*.6};
-});
-let tt=0;
-(function floatLoop(){
-  tt+=.01;
-  const mx=(mouse.x/innerWidth-.5),my=(mouse.y/innerHeight-.5),sy=scrollY;
-  fls.forEach(f=>{
-    const x=Math.sin(tt*f.sp+f.ph)*30+mx*-70*f.z;
-    const y=Math.cos(tt*f.sp*.8+f.ph)*30+my*-70*f.z-sy*.15*f.z;
-    f.el.style.transform=`translate(${x}px,${y}px) rotate(${Math.sin(tt*f.sp+f.ph)*10}deg)`;
-  });
-  if(!reduce)requestAnimationFrame(floatLoop);
-})();
 
 /* ---------- Typing effect ---------- */
 const lines=['CSE Student','Problem Solver','Full-Stack Developer','Algorithm Enthusiast','AI Explorer'];
@@ -519,14 +493,12 @@ const out=document.getElementById('out'),cmd=document.getElementById('cmd');
 const say=(t,c)=>{const d=document.createElement('div');if(c)d.className=c;d.textContent=t;out.appendChild(d);out.scrollTop=out.scrollHeight;};
 
 const cmds={
-  help:()=>'Commands: about, skills, projects, contact, binary <n>, theme, matrix, clear',
-  about:()=>'Tonmoy Paul: CSE student who loves algorithms, AI and building things.',
+  help:()=>'Commands: about, skills, projects, certificates, contact, clear',
+  about:()=>'CSE student at AIUB building practical skills in Python, data analytics, machine learning, and software development.',
   skills:()=>skills.map(s=>s[0]+' ['+s[2]+'%]').join(', '),
-  projects:()=>{location.hash='#work';return 'Scrolling to projects...'},
-  contact:()=>{location.hash='#contact';return 'Scrolling to contact...'},
-  binary:a=>isNaN(+a)?'usage: binary 42':`${a} = 0b${(+a>>>0).toString(2)} = 0x${(+a>>>0).toString(16).toUpperCase()}`,
-  theme:()=>{document.body.classList.toggle('light');return 'theme toggled'},
-  matrix:()=>{for(let i=0;i<80;i++)parts.push(mk(Math.random()*W,-10,true));return 'Wake up, Neo...'},
+  projects:()=>{location.hash='#work';return 'Featured work: MediCare Pharmacy Management, Pandas Practice Lab, NumPy Array Toolkit, and OpenCV Visual Lab.'},
+  certificates:()=>{location.hash='#certificates';return 'Open the Certificates section to see course and data analytics achievements.'},
+  contact:()=>{location.hash='#contact';return 'Email: snahasishpaul7@gmail.com | GitHub: github.com/snahasishpaul7-design | Facebook: tonmoy.pal.722445'},
   clear:()=>{out.innerHTML='';return null}
 };
 const hist=[];let hi=0;
@@ -539,31 +511,6 @@ cmd.addEventListener('keydown',e=>{
   if(cmds[c]){const r=cmds[c](a[0]);if(r!==null)say(r);}else say(`command not found: ${c}`,'e');
 });
 document.getElementById('lab').addEventListener('click',e=>{if(e.target.closest('.term'))cmd.focus()});
-
-/* ---------- Sorting visualizer ---------- */
-const barsEl=document.getElementById('bars'),N=40;let arr=[],running=false,steps=0;
-const wait=()=>new Promise(r=>setTimeout(r,(101-document.getElementById('spd').value)*1.2));
-function render(cmp=[],done=[]){
-  barsEl.innerHTML='';arr.forEach((v,i)=>{const d=document.createElement('div');d.style.height=v+'%';
-    if(cmp.includes(i))d.className='cmp';if(done.includes(i))d.className='done';barsEl.appendChild(d);});
-}
-function shuffle(){if(running)return;arr=Array.from({length:N},(_,i)=>8+i*(92/N));
-  for(let i=N-1;i>0;i--){const j=Math.random()*(i+1)|0;[arr[i],arr[j]]=[arr[j],arr[i]];}
-  steps=0;document.getElementById('stat').textContent='';render();}
-async function sw(i,j){[arr[i],arr[j]]=[arr[j],arr[i]];steps++;render([i,j]);await wait();}
-async function runSort(){
-  if(running)return;running=true;const t0=performance.now();steps=0;
-  const alg=document.getElementById('alg').value;
-  if(alg==='bubble'){for(let i=0;i<N;i++)for(let j=0;j<N-i-1;j++){if(arr[j]>arr[j+1])await sw(j,j+1);else{render([j,j+1]);await wait();}}}
-  if(alg==='selection'){for(let i=0;i<N;i++){let m=i;for(let j=i+1;j<N;j++){render([m,j]);await wait();if(arr[j]<arr[m])m=j;}if(m!==i)await sw(i,m);}}
-  if(alg==='insertion'){for(let i=1;i<N;i++){let j=i;while(j>0&&arr[j-1]>arr[j]){await sw(j,j-1);j--;}}}
-  if(alg==='quick'){const q=async(l,h)=>{if(l>=h)return;const p=arr[h];let i=l;for(let j=l;j<h;j++){if(arr[j]<p){await sw(i,j);i++;}else{render([j,h]);await wait();}}await sw(i,h);await q(l,i-1);await q(i+1,h);};await q(0,N-1);}
-  for(let i=0;i<N;i++){render([],Array.from({length:i+1},(_,k)=>k));await new Promise(r=>setTimeout(r,12));}
-  document.getElementById('stat').textContent=`${steps} swaps · ${((performance.now()-t0)/1000).toFixed(1)}s`;
-  running=false;
-}
-document.getElementById('shuf').onclick=shuffle;document.getElementById('run').onclick=runSort;
-shuffle();
 
 /* ---------- Magnetic buttons ---------- */
 document.querySelectorAll('.btn').forEach(b=>{
