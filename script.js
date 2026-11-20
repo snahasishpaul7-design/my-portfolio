@@ -157,7 +157,7 @@ async function storedCertificates(action, record) {
 
 async function loadPublicCertificates() {
   try {
-    const response = await fetch("assets/certificates/public-certificates.json", { cache: "no-store" });
+    const response = await fetch(`assets/certificates/public-certificates.json?v=${Date.now()}`, { cache: "no-store" });
     if (!response.ok) return;
     const result = await response.json();
     if (Array.isArray(result)) {
