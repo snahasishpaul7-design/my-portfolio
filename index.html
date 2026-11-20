@@ -285,7 +285,7 @@ window.addEventListener('scroll',()=>document.querySelector('.site-header')?.cla
 <section id="lab">
   <h2 class="reveal"><b>04.</b>The Lab</h2>
   <p class="sub reveal">Type <code>help</code> in the terminal for commands. Choose Bubble, Insertion, or another sort below, then press Run.</p>
-  <div class="term reveal"><div class="top"><i></i><i></i><i></i></div><div id="out"><div class="c">Welcome! Type "help" to see commands.</div><div>Try: help, skills, math, fib 10, prime 97</div></div><div class="inl">visitor@tonmoy:~$<input id="cmd" autocomplete="off" spellcheck="false" placeholder="type a command (e.g. help)..."></div></div>
+  <div class="term reveal"><div class="top"><i></i><i></i><i></i></div><div id="out"><div class="c">Welcome! Type "help" to see commands.</div><div>Type help to see available commands.</div></div><div class="inl">visitor@tonmoy:~$<input id="cmd" autocomplete="off" spellcheck="false" placeholder="type a command (e.g. help)..."></div></div>
   <div class="viz reveal" style="margin-top:34px">
     <p class="sort-help">Pick a sorting method, press <strong>Shuffle</strong> to reset the bars, then press <strong>Run</strong> to watch it.</p>
     <div class="ctl">
@@ -517,17 +517,14 @@ document.querySelectorAll('.filters button').forEach(b=>b.onclick=()=>{
 /* ---------- Interactive terminal ---------- */
 const out=document.getElementById('out'),cmd=document.getElementById('cmd');
 const say=(t,c)=>{const d=document.createElement('div');if(c)d.className=c;d.textContent=t;out.appendChild(d);out.scrollTop=out.scrollHeight;};
-say('Welcome! Type "help" to see commands.','c');
+
 const cmds={
-  help:()=>'Commands: about, skills, projects, contact, math, binary <n>, fib <n>, prime <n>, theme, matrix, clear',
+  help:()=>'Commands: about, skills, projects, contact, binary <n>, theme, matrix, clear',
   about:()=>'Tonmoy Paul: CSE student who loves algorithms, AI and building things.',
   skills:()=>skills.map(s=>s[0]+' ['+s[2]+'%]').join(', '),
-  projects:()=>{location.hash='#projects';return 'Scrolling to projects...'},
+  projects:()=>{location.hash='#work';return 'Scrolling to projects...'},
   contact:()=>{location.hash='#contact';return 'Scrolling to contact...'},
-  math:()=>`pi = ${Math.PI}\ne = ${Math.E}\nphi = ${(1+Math.sqrt(5))/2}`,
   binary:a=>isNaN(+a)?'usage: binary 42':`${a} = 0b${(+a>>>0).toString(2)} = 0x${(+a>>>0).toString(16).toUpperCase()}`,
-  fib:a=>{const n=Math.min(+a||10,60);let x=0,y=1,r=[];for(let i=0;i<n;i++){r.push(x);[x,y]=[y,x+y];}return r.join(' ')},
-  prime:a=>{const n=+a;if(!(n>1))return 'usage: prime 97';for(let i=2;i*i<=n;i++)if(n%i===0)return `${n} is composite (divisible by ${i})`;return `${n} is prime`},
   theme:()=>{document.body.classList.toggle('light');return 'theme toggled'},
   matrix:()=>{for(let i=0;i<80;i++)parts.push(mk(Math.random()*W,-10,true));return 'Wake up, Neo...'},
   clear:()=>{out.innerHTML='';return null}
