@@ -2,9 +2,9 @@
 
 My personal portfolio featuring my projects, technical skills, learning interests, and certificates.
 
-## Live website
+## Live portfolio
 
-[Open the live portfolio](https://snahasishpaul7-design.github.io/my-portfolio/)
+[portfolio_tonmoy](https://snahasishpaul7-design.github.io/my-portfolio/)
 
 ## Certificate uploads
 
