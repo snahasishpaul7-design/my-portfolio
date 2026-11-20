@@ -9,6 +9,21 @@
     <link rel="stylesheet" href="palette.css" />
     <link rel="stylesheet" href="motion.css" />
     <link rel="stylesheet" href="reference-design.css?v=orvis-20261120" />
+<style id="portfolio-final-layout">
+.site-header{position:fixed!important;inset:0 0 auto!important;width:100%!important;min-height:72px!important;z-index:1000!important;background:rgba(5,6,15,.94)!important;display:flex!important;align-items:center!important;padding:0 clamp(22px,6vw,96px)!important}
+.site-header>.logo{margin-right:auto!important;position:relative!important;z-index:2!important;color:#00f5d4!important}
+#quick-nav-toggle{display:flex!important;align-items:center!important;gap:9px!important;border:1px solid rgba(255,255,255,.2)!important;border-radius:999px!important;padding:10px 15px!important;background:#101525!important;color:#e6edf7!important;font:600 13px system-ui!important;cursor:pointer!important}
+#quick-nav-toggle:hover{border-color:#00f5d4!important;color:#00f5d4!important}
+#quick-nav-links{position:absolute!important;top:calc(100% + 8px)!important;right:clamp(22px,6vw,96px)!important;z-index:1001!important;min-width:210px!important;padding:9px!important;border:1px solid rgba(255,255,255,.16)!important;border-radius:13px!important;background:#0c1020!important;box-shadow:0 16px 38px rgba(0,0,0,.48)!important;grid-template-columns:1fr 1fr!important;gap:4px!important}
+#quick-nav-links:not([hidden]){display:grid!important}#quick-nav-links[hidden]{display:none!important}
+#quick-nav-links a,#quick-nav-links button{padding:10px 11px!important;border:0!important;border-radius:8px!important;background:transparent!important;color:#e6edf7!important;text-align:left!important;text-decoration:none!important;font:500 13px system-ui!important;cursor:pointer!important}
+#quick-nav-links a:hover,#quick-nav-links button:hover{background:rgba(0,245,212,.12)!important;color:#00f5d4!important}
+html{scroll-padding-top:90px!important}
+@media(max-width:680px){.site-header{min-height:64px!important;padding-inline:18px!important}#quick-nav-toggle{width:42px!important;height:40px!important;justify-content:center!important;padding:0!important}#quick-nav-toggle span{display:none!important}#quick-nav-links{right:18px!important}}
+#skills{position:relative}
+#skills-fallback{top:48%!important}
+.sort-help{line-height:1.6}
+</style>
     <style>#add-certificate[hidden] { display: none !important; }
   #home{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;padding-left:7vw;padding-right:7vw;padding-top:120px;padding-bottom:70px}
   .hero-portrait{position:relative;inset:auto;order:-1;width:clamp(190px,24vw,290px);aspect-ratio:1;object-fit:cover;object-position:center 30%;border-radius:50%;border:2px solid var(--a);box-shadow:0 0 0 12px rgba(0,245,212,.08),0 0 62px rgba(0,245,212,.28);z-index:2;opacity:.97;transform:none;transition:transform .35s ease,box-shadow .35s ease,filter .35s ease;cursor:pointer;margin:0 auto 30px}
@@ -141,14 +156,15 @@
 
 <nav class="site-header">
   <a class="logo mono" href="#home" aria-label="Tonmoy Paul home">Tonmoy Paul</a>
-  <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" onclick="const nav=document.getElementById('site-nav');const open=this.getAttribute('aria-expanded')!=='true';nav.classList.toggle('is-open',open);this.setAttribute('aria-expanded',String(open));this.setAttribute('aria-label',open?'Close navigation':'Open navigation')"><span></span><span></span></button>
-  <ul class="site-nav" id="site-nav">
-    <li><a href="#home">Home</a></li><li><a href="#about">About</a></li>
-    <li><a href="#experience">Experience</a></li><li><a href="#skills">Skills</a></li><li><a href="#work">Projects</a></li><li><a href="#certificates">Certificates</a></li><li><a href="#lab">Lab</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li class="quick-nav-item"><button id="quick-nav-toggle" type="button" aria-expanded="false" aria-controls="quick-nav-links" onclick="const m=document.getElementById('quick-nav-links');const open=m.hidden;m.hidden=!open;this.setAttribute('aria-expanded',String(open))">☰ <span>About / Contact</span></button><div id="quick-nav-links" hidden><a href="#about" onclick="document.getElementById('quick-nav-links').hidden=true;document.getElementById('quick-nav-toggle').setAttribute('aria-expanded','false')">About</a><a href="#contact" onclick="document.getElementById('quick-nav-links').hidden=true;document.getElementById('quick-nav-toggle').setAttribute('aria-expanded','false')">Contact</a></div></li>
-  </ul>
+  <button id="quick-nav-toggle" type="button" aria-expanded="false" aria-controls="quick-nav-links" onclick="const m=document.getElementById('quick-nav-links');const open=m.hidden;m.hidden=!open;this.setAttribute('aria-expanded',String(open))">☰ <span>Menu</span></button>
+  <div id="quick-nav-links" hidden>
+    <a href="#about" onclick="closePortfolioMenu()">About</a><a href="#contact" onclick="closePortfolioMenu()">Contact</a>
+    <a href="#skills" onclick="closePortfolioMenu()">Skills</a><a href="#work" onclick="closePortfolioMenu()">Projects</a>
+    <a href="#certificates" onclick="closePortfolioMenu()">Certificates</a><a href="#lab" onclick="closePortfolioMenu()">Lab</a>
+    <button type="button" onclick="document.body.classList.toggle('light');closePortfolioMenu()">Toggle theme</button>
+  </div>
 </nav>
+<script>function closePortfolioMenu(){const m=document.getElementById('quick-nav-links');if(m){m.hidden=true;document.getElementById('quick-nav-toggle').setAttribute('aria-expanded','false')}}</script>
 
 <main>
 <section id="home">
