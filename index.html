@@ -314,7 +314,7 @@ function draw(){
 if(!reduce)draw();
 
 /* ---------- Floating math / code symbols with scroll + mouse parallax ---------- */
-const syms=['E = mc²','∑ n²','∫ f(x)dx','π','e^(iπ)+1=0','O(n log n)','√x','∞','∂f/∂x','fib(n)','while(true)','int main()','def f():','a² + b² = c²','0b1011','0xFF','git push','⊕','∀x ∃y','P ≠ NP?'];
+const syms=['E = mc²','∑ n²','∫ f(x)dx','π','e^(iπ)+1=0','O(n log n)','√x','∞','∂f/∂x','fib(n)','while(true)','int main()','def f():','a² + b² = c²','0b1011','0xFF','git push','⊕','∀x ∃y','P ≠ NP?','import numpy as np','import pandas as pd','df.describe()','np.mean(x)','plt.plot(x, y)','for row in data:','σ² = Var(X)','μ = Σx / n','P(A | B)','z = (x − μ) / σ','Σ(x − x̄)²','r = cov(x, y)','ŷ = β₀ + β₁x'];
 const fbox=document.getElementById('floaters');
 const fls=syms.map((s,i)=>{
   const el=document.createElement('div');el.className='fl';el.textContent=s;
