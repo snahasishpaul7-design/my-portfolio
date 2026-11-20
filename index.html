@@ -23,6 +23,13 @@ html{scroll-padding-top:90px!important}
 #skills{position:relative}
 #skills-fallback{top:48%!important}
 .sort-help{line-height:1.6}
+.header-actions{display:flex!important;align-items:center!important;gap:clamp(12px,2.5vw,28px)!important;margin-left:auto!important}
+.header-direct-link{color:#e6edf7!important;font:600 13px system-ui!important;text-decoration:none!important;transition:color .2s!important}
+.header-direct-link:hover{color:#00f5d4!important}
+#quick-nav-toggle{width:40px!important;height:40px!important;justify-content:center!important;padding:0!important;font-size:18px!important}
+.site-header>.logo{transform:translateY(0);opacity:1;max-width:180px;overflow:hidden;transition:transform .35s ease,opacity .25s ease,max-width .35s ease,margin .35s ease}
+.site-header.is-scrolled>.logo{transform:translateY(-140%);opacity:0;max-width:0;margin:0!important;pointer-events:none}
+@media(max-width:680px){.site-header{justify-content:space-between!important}.header-actions{gap:14px!important;margin-left:auto!important}.header-direct-link{font-size:12px!important}#quick-nav-toggle{width:36px!important;height:36px!important}}
 </style>
     <style>#add-certificate[hidden] { display: none !important; }
   #home{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;padding-left:7vw;padding-right:7vw;padding-top:120px;padding-bottom:70px}
@@ -139,7 +146,7 @@ html{scroll-padding-top:90px!important}
   .btn,.fill{will-change:transform}
   @media(max-width:800px){#panel{grid-template-columns:1fr}}
 </style>
-<script src="script.js?v=inline-menu-20261120" defer></script>
+<script src="script.js?v=live-navigation-20261120" defer></script>
 
 <style>
 .logo{color:#00f5d4;text-decoration:none;font-weight:700;white-space:nowrap}
@@ -156,7 +163,11 @@ html{scroll-padding-top:90px!important}
 
 <nav class="site-header">
   <a class="logo mono" href="#home" aria-label="Tonmoy Paul home">Tonmoy Paul</a>
-  <button id="quick-nav-toggle" type="button" aria-expanded="false" aria-controls="quick-nav-links" onclick="const m=document.getElementById('quick-nav-links');const open=m.hidden;m.hidden=!open;this.setAttribute('aria-expanded',String(open))">☰ <span>Menu</span></button>
+  <div class="header-actions">
+    <a class="header-direct-link" href="#about">About</a>
+    <a class="header-direct-link" href="#contact">Contact</a>
+    <button id="quick-nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="quick-nav-links" onclick="const m=document.getElementById('quick-nav-links');const open=m.hidden;m.hidden=!open;this.setAttribute('aria-expanded',String(open));this.setAttribute('aria-label',open?'Close menu':'Open menu')">☰</button>
+  </div>
   <div id="quick-nav-links" hidden>
     <a href="#about" onclick="closePortfolioMenu()">About</a><a href="#contact" onclick="closePortfolioMenu()">Contact</a>
     <a href="#skills" onclick="closePortfolioMenu()">Skills</a><a href="#work" onclick="closePortfolioMenu()">Projects</a>
@@ -164,6 +175,10 @@ html{scroll-padding-top:90px!important}
     <button type="button" onclick="document.body.classList.toggle('light');closePortfolioMenu()">Toggle theme</button>
   </div>
 </nav>
+<script>
+function closePortfolioMenu(){const m=document.getElementById('quick-nav-links');if(m){m.hidden=true;document.getElementById('quick-nav-toggle').setAttribute('aria-expanded','false');document.getElementById('quick-nav-toggle').setAttribute('aria-label','Open menu')}}
+window.addEventListener('scroll',()=>document.querySelector('.site-header')?.classList.toggle('is-scrolled',window.scrollY>24),{passive:true});
+</script>
 <script>function closePortfolioMenu(){const m=document.getElementById('quick-nav-links');if(m){m.hidden=true;document.getElementById('quick-nav-toggle').setAttribute('aria-expanded','false')}}</script>
 
 <main>
