@@ -19,6 +19,7 @@
   #home .hint{margin-top:28px}
   @media(max-width:800px){#home{padding-inline:7vw;padding-top:100px}.hero-portrait{width:clamp(160px,44vw,225px);margin-bottom:24px}}
   @media(prefers-reduced-motion:reduce){.hero-portrait{transition:none}}
+  #skills{position:relative}#skills-fallback{position:absolute;left:7vw;right:7vw;top:48%;z-index:5;display:flex;flex-wrap:wrap;justify-content:center;gap:12px;pointer-events:none}#skills-fallback span{padding:10px 16px;border:1px solid rgba(0,245,212,.34);border-radius:999px;background:rgba(8,12,24,.85);color:#dce8f5;font:600 13px Consolas,monospace;box-shadow:0 0 18px rgba(0,245,212,.12)}#skills.skills-live #skills-fallback{display:none}
 </style>
     <script>window.PORTFOLIO_UPLOAD_ENDPOINT = "https://tonmoy-portfolio-cert-upload-v2-2026.snahasishpaul7.workers.dev";</script>
     
@@ -143,7 +144,7 @@
     <li><a href="#home">Home</a></li><li><a href="#about">About</a></li>
     <li><a href="#experience">Experience</a></li><li><a href="#skills">Skills</a></li><li><a href="#work">Projects</a></li><li><a href="#certificates">Certificates</a></li><li><a href="#lab">Lab</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><button id="theme">☾ / ☀</button></li>
+    <li><button id="theme" type="button" onclick="document.body.classList.toggle('light')">☾ / ☀</button></li>
   </ul>
 </nav>
 
@@ -190,6 +191,7 @@
   <h2 class="reveal"><b>02.</b>Skills Constellation</h2>
   <p class="sub reveal">Hover a node to light up its connections. Drag nodes around. They float on their own.</p>
   <canvas id="net" class="reveal"></canvas>
+  <div id="skills-fallback" aria-hidden="true"><span>Streamlit</span><span>Power BI</span><span>Tableau</span><span>Pandas</span><span>Linux Basic</span><span>NumPy</span><span>OpenCV</span><span>Matplotlib</span><span>HTML</span><span>CSS</span><span>JavaScript</span><span>GitHub</span></div>
   <div id="info">&gt; hover a skill...</div>
   <div id="panel"><div><b id="pn" class="mono">Select a node</b><p id="pd" style="color:var(--muted);margin-top:6px">Click any node to see details. Drag one and let go: it springs back on its elastic connectors.</p></div><div><span class="mono" style="color:var(--a)">proficiency</span><div class="bar"><i id="pb"></i></div><p id="pp" class="mono" style="margin-top:8px;color:var(--muted)">0%</p></div></div>
 </section>
@@ -470,7 +472,7 @@ function nloop(){
   });
   requestAnimationFrame(nloop);
 }
-nloop();
+nloop();document.getElementById("skills").classList.add("skills-live");
 
 /* ---------- Project filters ---------- */
 document.querySelectorAll('.filters button').forEach(b=>b.onclick=()=>{
