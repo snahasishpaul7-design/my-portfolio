@@ -185,6 +185,12 @@ html{scroll-padding-top:90px!important}
 #about .section-title{color:#ffffff!important}
 #about .about-copy{color:#ffffff!important}
 </style>
+<style id="hero-role-centered">
+#home{align-items:center!important;text-align:center!important}
+#home .typed{display:block!important;width:min(100%,980px)!important;max-width:980px!important;align-self:center!important;text-align:center!important;color:#ffffff!important;font-size:clamp(1.25rem,3vw,1.8rem)!important;line-height:1.4!important;margin:12px auto 24px!important;min-height:1.5em!important}
+#home .btns{align-self:center!important;justify-content:center!important;width:100%!important}
+@media(max-width:680px){#home .typed{font-size:1.2rem!important;margin:10px auto 20px!important}}
+</style>
 </head>
 <body>
 <div id="prog"></div>
@@ -315,7 +321,7 @@ window.addEventListener('scroll',()=>document.querySelector('.site-header')?.cla
 
 <section id="lab">
   <h2 class="reveal"><b>04.</b>Portfolio Terminal</h2>
-  <p class="sub reveal">Type <code>help</code> in the terminal for commands. Choose Bubble, Insertion, or another sort below, then press Run.</p>
+  <p class="sub reveal">Explore my skills, projects, certificates, and contact details. Type <code>help</code> to see the available commands.</p>
   <div class="term reveal"><div class="top"><i></i><i></i><i></i></div><div id="out"><div class="c">Portfolio terminal ready.</div><div>Type help to explore this portfolio.</div></div><div class="inl">visitor@tonmoy:~$<input id="cmd" autocomplete="off" spellcheck="false" placeholder="type help..."></div></div>
 </section>
 
