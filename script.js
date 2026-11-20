@@ -436,31 +436,6 @@ grid.addEventListener("click", async (event) => {
   }
 });
 
-const menuToggle = document.querySelector(".menu-toggle");
-const navigation = document.querySelector("#site-nav");
-if (menuToggle && navigation) {
-  const closeNavigation = () => {
-    navigation.classList.remove("is-open");
-    navigation.style.removeProperty("display");
-    navigation.querySelectorAll("li").forEach((item) => item.style.removeProperty("display"));
-    menuToggle.setAttribute("aria-expanded", "false");
-    menuToggle.setAttribute("aria-label", "Open navigation");
-  };
-  menuToggle.addEventListener("click", () => {
-    const opening = menuToggle.getAttribute("aria-expanded") !== "true";
-    if (opening) {
-      navigation.classList.add("is-open");
-      navigation.style.setProperty("display", "flex", "important");
-      navigation.querySelectorAll("li").forEach((item) => item.style.setProperty("display", "block", "important"));
-      menuToggle.setAttribute("aria-expanded", "true");
-      menuToggle.setAttribute("aria-label", "Close navigation");
-    } else {
-      closeNavigation();
-    }
-  });
-  navigation.querySelectorAll("a").forEach((link) => link.addEventListener("click", closeNavigation));
-}
-
 const projectCards = [...document.querySelectorAll("#project-grid .project-card")];
 document.querySelectorAll("[data-filter]").forEach((button) => button.addEventListener("click", () => {
   const filter = button.dataset.filter;
