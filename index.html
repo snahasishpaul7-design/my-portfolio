@@ -395,6 +395,8 @@ const skills=[
   ['OpenCV','Computer vision basics',66],['Matplotlib','Charts & visualization',73],['HTML','Web page structure',78],
   ['CSS','Web styling & layout',76],['JavaScript','Web interactivity',78],['GitHub','Code hosting & collaboration',72]
 ]
+// Connections between related skills, indexed in the same order as the skills above.
+const links=[[0,3],[0,1],[1,2],[1,3],[2,3],[3,4],[3,5],[3,7],[4,11],[5,6],[5,7],[6,7],[7,8],[7,9],[8,9],[9,10],[10,11],[3,11],[5,11]];
 let nodes=[],hover=-1,drag=-1,sel=-1,NW,NH,pulses=[];
 function nresize(){
   const r=net.getBoundingClientRect(),dpr=devicePixelRatio||1;
@@ -556,7 +558,7 @@ const bt=document.getElementById('bootTxt'),bl=['> initializing portfolio.exe','
 let bi=0;(function bootLoop(){if(bi<bl.length){bt.textContent+=bl[bi++]+'\n';setTimeout(bootLoop,350);}else setTimeout(()=>document.getElementById('boot').classList.add('off'),400);})();
 
 /* ---------- Theme toggle ---------- */
-document.getElementById('theme').onclick=()=>document.body.classList.toggle('light');
+document.document.getElementById('theme').addEventListener('click',()=>{document.body.classList.toggle('light');});
 </script>
 <dialog class="certificate-dialog" id="owner-login-dialog" aria-labelledby="owner-login-title">
       <form id="owner-login-form" class="certificate-form">
