@@ -180,3 +180,28 @@
 }
 /* Keep owner-only actions hidden until the Worker verifies the upload password. */
 #add-certificate[hidden] { display: none !important; }
+
+
+/* Neon portfolio treatment inspired by the supplied design. Keeps the existing content and certificate controls. */
+:root{--bg:#070b16;--ink:#e8eef9;--muted:#9aa8be;--surface:rgba(14,22,39,.82);--line:rgba(151,173,207,.2);--accent:#00e5c2;--accent-2:#8967ff;--pink:#ff55c8}
+html{scroll-behavior:smooth;scroll-padding-top:88px}
+body{background:radial-gradient(ellipse at 76% 4%,rgba(90,55,174,.2),transparent 34rem),radial-gradient(ellipse at 8% 28%,rgba(0,229,194,.08),transparent 28rem),var(--bg);color:var(--ink)}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;opacity:.18;background-image:linear-gradient(rgba(131,158,191,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(131,158,191,.08) 1px,transparent 1px);background-size:48px 48px;mask-image:linear-gradient(to bottom,black,transparent 85%)}
+.site-header{background:rgba(7,11,22,.76);border-bottom:1px solid var(--line);backdrop-filter:blur(18px)}
+.wordmark-icon,.gradient-text{color:var(--accent)}
+.gradient-text{background:linear-gradient(95deg,var(--accent),#75a9ff 48%,var(--accent-2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.eyebrow,.section-number,.experience-index,.project-type,.art-label{color:var(--accent)}
+.button-primary{background:linear-gradient(100deg,var(--accent),#8c76ff);color:#07111a;border:0;box-shadow:0 8px 30px rgba(0,229,194,.16)}
+.button-primary:hover{box-shadow:0 10px 38px rgba(0,229,194,.3);transform:translateY(-2px)}
+.button-quiet,.header-cta{border-color:var(--line);color:var(--ink)}
+.experience-card,.project-card,.certificate-card,.contact-card{background:linear-gradient(145deg,rgba(19,29,49,.92),rgba(10,15,28,.9));border:1px solid var(--line);box-shadow:0 18px 56px rgba(0,0,0,.2);transition:border-color .25s,transform .25s,box-shadow .25s}
+.experience-card:hover,.project-card:hover,.certificate-card:hover{border-color:rgba(0,229,194,.58);box-shadow:0 20px 60px rgba(0,229,194,.1),0 18px 56px rgba(0,0,0,.26);transform:translateY(-4px)}
+.certificate-preview,.cert-preview{background:#0b1220;border-color:var(--line)}
+.certificate-card h3,.project-card h3,.experience-card h3{color:var(--ink)}
+.text-link,.certificate-link,.project-arrow{color:var(--accent)}
+.project-filters button[aria-pressed=true],.project-filters button:hover{border-color:var(--accent);color:var(--accent)}
+.dialog-panel,dialog{background:#0c1322;color:var(--ink);border:1px solid var(--line);box-shadow:0 30px 100px rgba(0,0,0,.6)}
+.form-input{background:#080e1a;color:var(--ink);border-color:var(--line)}
+.form-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(0,229,194,.13)}
+::selection{background:rgba(0,229,194,.28);color:white}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
